@@ -22,6 +22,7 @@ public class Settings : PluginComponent {
     public static ConfigEntry<KeyboardShortcut> ReduceCurrency;
     public static ConfigEntry<KeyboardShortcut> AddCurrency;
     public static ConfigEntry<KeyboardShortcut> X10Damage;
+    public static ConfigEntry<float> DamageMultiplier;
     public static ConfigEntry<KeyboardShortcut> NoDamage;
     public static ConfigEntry<KeyboardShortcut> LevelSelector;
     public static ConfigEntry<KeyboardShortcut> ToggleFrameCounter;
@@ -235,7 +236,8 @@ public class Settings : PluginComponent {
         Gain5ExCards = config.Bind("Misc", "Gain 5 Ex Cards", new KeyboardShortcut(KeyCode.Alpha1), --order);
         Gain1ExCard = config.Bind("Misc", "Gain 1 Ex Card", new KeyboardShortcut(KeyCode.Alpha2), --order);
         ClearCharmsSupers = config.Bind("Misc", "Clear CHARMS and SUPERS", new KeyboardShortcut(KeyCode.Alpha3), --order);
-        X10Damage = config.Bind("Misc", "x10 Damage", new KeyboardShortcut(KeyCode.Alpha4), --order);
+        X10Damage = config.Bind("Misc", "Toggle Damage Multiplier", new KeyboardShortcut(KeyCode.Alpha4), --order);
+        DamageMultiplier = config.Bind("Misc", "Damage Multiplier", 10f, --order);
         NoDamage = config.Bind("Misc", "No Damage", new KeyboardShortcut(KeyCode.Alpha6), --order);
         InvincibilityOneFight = config.Bind("Misc", "Invincibility One Fight", new KeyboardShortcut(KeyCode.Alpha5), --order);
         ToggleFrameCounter = config.Bind("Misc", "Toggle FrameCounter", new KeyboardShortcut(KeyCode.F4), --order);
