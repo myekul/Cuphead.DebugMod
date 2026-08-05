@@ -72,7 +72,8 @@ public class Settings : PluginComponent {
 
     public static ConfigEntry<bool> SkipToLastSafeSpace;
 
-    public static ConfigEntry<bool> HideUnusedLevels;
+    public static ConfigEntry<RngOverride> RngOverride;
+    public static ConfigEntry<bool> ShowUnusedLevels;
 
     public static ConfigEntry<ForestPlatformingAcornSpawnerDirections> ForestPlatformingAcornSpawnerDirection;
     public static ConfigEntry<ForestPlatformingAcornSpawnerYIndexes> ForestPlatformingAcornSpawnerYIndex;
@@ -81,6 +82,8 @@ public class Settings : PluginComponent {
     public static ConfigEntry<FrogsPhaseOneFirefliesPatternsNormal> FrogsPhaseOneFirefliesPatternNormal;
     public static ConfigEntry<FrogsPhaseOneFirefliesPatternsHard> FrogsPhaseOneFirefliesPatternHard;
     public static ConfigEntry<FrogsPhaseFinalPatterns> FrogsPhaseFinalPattern;
+    public static ConfigEntry<SlimePhaseOneJumpCountsNormal> SlimePhaseOneJumpCountNormal;
+    public static ConfigEntry<SlimePhaseOneJumpPatternsNormal> SlimePhaseOneJumpPatternNormal;
     public static ConfigEntry<FlyingBlimpPhaseBlimp2PatternsEasy> FlyingBlimpPhaseBlimp2PatternEasy;
     public static ConfigEntry<FlyingBlimpPhaseBlimp3PatternsEasy> FlyingBlimpPhaseBlimp3PatternEasy;
     public static ConfigEntry<FlyingBlimpConstellationPatternsNormal> FlyingBlimpConstellationPatternNormal;
@@ -151,6 +154,7 @@ public class Settings : PluginComponent {
     public static ConfigEntry<BeePhaseTwoPatternsHard> BeePhaseTwoPatternHard;
     public static ConfigEntry<BeePhaseTwoOrbsDirections> BeePhaseTwoOrbsDirection;
     public static ConfigEntry<BeePhaseTwoTrianglesDirections> BeePhaseTwoTrianglesDirection;
+    public static ConfigEntry<bool> BeePerfectPlatforms;
     public static ConfigEntry<bool> BeeMissingPlatformPattern;
     public static ConfigEntry<RobotPhaseFinalGemColors> RobotPhaseFinalGemColor;
     public static ConfigEntry<SallyStageplayPatternsEasy> SallyStageplayPatternEasy;
@@ -164,6 +168,13 @@ public class Settings : PluginComponent {
     public static ConfigEntry<MousePhaseOnePatternsEasy> MousePhaseOnePatternEasy;
     public static ConfigEntry<MousePhaseOnePatternsNormal> MousePhaseOnePatternNormal;
     public static ConfigEntry<MousePhaseOnePatternsHard> MousePhaseOnePatternHard;
+    public static ConfigEntry<float> MouseCanMoveMaxXPosition;
+    public static ConfigEntry<float> MouseBrokenCanMoveMaxXPosition;
+    public static ConfigEntry<MouseCherryBombPatternsNormal> MouseCherryBombPatternNormal;
+    public static ConfigEntry<MouseCherryBombPatternsHard> MouseCherryBombPatternHard;
+    public static ConfigEntry<MouseCatapultPatternsEasy> MouseCatapultPatternEasy;
+    public static ConfigEntry<MouseCatapultPatternsNormal> MouseCatapultPatternNormal;
+    public static ConfigEntry<MouseCatapultPatternsHard> MouseCatapultPatternHard;
     public static ConfigEntry<PiratePhaseThreeGunPatternsEasy> PiratePhaseThreeGunPatternEasy;
     public static ConfigEntry<PiratePhaseFourGunPatternsEasy> PiratePhaseFourGunPatternEasy;
     public static ConfigEntry<PiratePhaseSevenGunPatternsEasy> PiratePhaseSevenGunPatternEasy;
@@ -190,6 +201,8 @@ public class Settings : PluginComponent {
     public static ConfigEntry<DicePalaceHeartPositions3> DicePalaceHeartPosition3;
     public static ConfigEntry<DicePalaceCigarSpitAttackCountsNormal> DicePalaceCigarSpitAttackCountNormal;
     public static ConfigEntry<DicePalaceCigarSpitAttackCountsHard> DicePalaceCigarSpitAttackCountHard;
+    public static ConfigEntry<DicePalaceChipsPatternsNormal> DicePalaceChipsPatternNormal;
+    public static ConfigEntry<DicePalaceChipsPatternsHard> DicePalaceChipsPatternHard;
     public static ConfigEntry<DicePalaceRabbitPatterns> DicePalaceRabbitPattern;
     public static ConfigEntry<DicePalaceRabbitParryDirections> DicePalaceRabbitParryDirection;
     public static ConfigEntry<DicePalaceRoulettePatterns> DicePalaceRoulettePattern;
@@ -202,16 +215,29 @@ public class Settings : PluginComponent {
     public static ConfigEntry<DevilPhaseOneSpiderHopCounts> DevilPhaseOneSpiderHopCount;
     public static ConfigEntry<float> DevilSpiderDelay;
     public static ConfigEntry<DevilPhaseOnePitchforkTypes> DevilPhaseOnePitchforkType;
+    public static ConfigEntry<DevilPhaseOneBouncerParryIndexes> DevilPhaseOneBouncerParryIndex;
+    public static ConfigEntry<DevilPhaseOneRingParryIndexes> DevilPhaseOneRingParryIndex;
     public static ConfigEntry<DevilPhaseOneBouncerAnglesNormal> DevilPhaseOneBouncerAngleNormal;
     public static ConfigEntry<DevilPhaseOneBouncerAnglesHard> DevilPhaseOneBouncerAngleHard;
     public static ConfigEntry<DevilPhaseTwoPatternsNormal> DevilPhaseTwoPatternNormal;
     public static ConfigEntry<DevilPhaseTwoPatternsHard> DevilPhaseTwoPatternHard;
     public static ConfigEntry<DevilPhaseTwoBombEyeDirections> DevilPhaseTwoBombEyeDirection;
-    public static ConfigEntry<DevilPhaseThreeHandsSkullTypes> DevilPhaseThreeHandsSkullType;
+    public static ConfigEntry<DevilPhaseTwoPlatformRisePatterns> DevilPhaseTwoPlatformRisePattern;
+    public static ConfigEntry<float> DevilPhaseTwoPlatformRiseDelay;
+    public static ConfigEntry<DevilPhaseThreeSkullTypes> DevilPhaseThreeSkullType;
     public static ConfigEntry<string> DevilTest;
 
 #if v1_3
-    public static ConfigEntry<RumRunnersSnoutPositions> RunRunnersSnoutPosition;
+    public static ConfigEntry<OldManPhaseOnePlatformRemoveOrdersNormal> OldManPhaseOnePlatformRemoveOrderNormal;
+    public static ConfigEntry<OldManPhaseTwoLeftPuppetPatternsNormal> OldManPhaseTwoLeftPuppetPatternNormal;
+    public static ConfigEntry<OldManPhaseTwoRightPuppetPatternsNormal> OldManPhaseTwoRightPuppetPatternNormal;
+    public static ConfigEntry<OldManPhaseTwoLeftPuppetPatternsHard> OldManPhaseTwoLeftPuppetPatternHard;
+    public static ConfigEntry<OldManPhaseTwoRightPuppetPatternsHard> OldManPhaseTwoRightPuppetPatternHard;
+    public static ConfigEntry<float> AirplanePhaseOneAttackDelay;
+    public static ConfigEntry<AirplanePhaseOnePatterns> AirplanePhaseOnePattern;
+    public static ConfigEntry<AirplanePhaseOneSides> AirplanePhaseOneSide;
+    public static ConfigEntry<AirplanePhaseOneParryPatterns> AirplanePhaseOneParryPattern;
+    public static ConfigEntry<RumRunnersPhaseThreeSnoutPositions> RumRunnersPhaseThreeSnoutPosition;
     public static ConfigEntry<SaltbakerPhaseOnePatterns> SaltbakerPhaseOnePattern;
     public static ConfigEntry<SaltbakerPhaseThreeSawPatterns> SaltbakerPhaseThreeSawPattern;
 #endif
@@ -288,15 +314,18 @@ public class Settings : PluginComponent {
 
         SkipToLastSafeSpace = config.Bind("King Dice", "Skip To Last Safe Space", false, --order);
 
-        HideUnusedLevels = config.Bind("Misc", "Hide Unused Levels", true, --order);
+        RngOverride = config.Bind("RNG", "RNG Override", BepInEx.CupheadDebugMod.Config.SettingsEnums.RngOverride.Custom, --order);
+        ShowUnusedLevels = config.Bind("Misc", "Show Unused Levels", false, --order);
 
         ForestPlatformingAcornSpawnerDirection = config.Bind("RNG Forest Follies", "Acorn Spawner Facing Direction", ForestPlatformingAcornSpawnerDirections.Random, --order);
         ForestPlatformingAcornSpawnerYIndex = config.Bind("RNG Forest Follies", "Acorn Spawner Y Coordinate", ForestPlatformingAcornSpawnerYIndexes.Random, --order);
-        FrogsPhaseOnePattern = config.Bind("RNG Ribby And Croaks", "P1 Pattern", FrogsPhaseOnePatterns.Random, --order);
+        FrogsPhaseOnePattern = config.Bind("RNG Ribby And Croaks", "Phase 1 Pattern", FrogsPhaseOnePatterns.Random, --order);
         FrogsPhaseOneFirefliesPatternEasy = config.Bind("RNG Ribby And Croaks", "Phase 1 Fireflies Pattern Simple", FrogsPhaseOneFirefliesPatternsEasy.Random, --order);
         FrogsPhaseOneFirefliesPatternNormal = config.Bind("RNG Ribby And Croaks", "Phase 1 Fireflies Pattern Regular", FrogsPhaseOneFirefliesPatternsNormal.Random, --order);
         FrogsPhaseOneFirefliesPatternHard = config.Bind("RNG Ribby And Croaks", "Phase 1 Fireflies Pattern Expert", FrogsPhaseOneFirefliesPatternsHard.Random, --order);
         FrogsPhaseFinalPattern = config.Bind("RNG Ribby And Croaks", "Final Phase Pattern", FrogsPhaseFinalPatterns.Random, --order);
+        SlimePhaseOneJumpCountNormal = config.Bind("RNG Goopy Le Grande", "Phase 1 Jump Count Regular", SlimePhaseOneJumpCountsNormal.Random, --order);
+        SlimePhaseOneJumpPatternNormal = config.Bind("RNG Goopy Le Grande", "Phase 1 Jump Pattern Regular", SlimePhaseOneJumpPatternsNormal.Random, --order);
         FlyingBlimpPhaseBlimp2PatternEasy = config.Bind("RNG Hilda Berg", "2nd Blimp Phase Simple", FlyingBlimpPhaseBlimp2PatternsEasy.Random, --order);
         FlyingBlimpPhaseBlimp3PatternEasy = config.Bind("RNG Hilda Berg", "3rd Blimp Phase Simple", FlyingBlimpPhaseBlimp3PatternsEasy.Random, --order);
         FlyingBlimpConstellationPatternNormal = config.Bind("RNG Hilda Berg", "Constellation Phase Regular", FlyingBlimpConstellationPatternsNormal.Random, --order);
@@ -367,6 +396,7 @@ public class Settings : PluginComponent {
         BeePhaseTwoPatternHard = config.Bind("RNG Rumor Honeybottoms", "Phase 2 Expert", BeePhaseTwoPatternsHard.Random, --order);
         BeePhaseTwoOrbsDirection = config.Bind("RNG Rumor Honeybottoms", "Phase 2 Orbs Direction", BeePhaseTwoOrbsDirections.Random, --order);
         BeePhaseTwoTrianglesDirection = config.Bind("RNG Rumor Honeybottoms", "Phase 2 Triangles Direction", BeePhaseTwoTrianglesDirections.Random, --order);
+        BeePerfectPlatforms = config.Bind("RNG Rumor Honeybottoms", "Perfect Platforms", false, --order);
         BeeMissingPlatformPattern = config.Bind("RNG Rumor Honeybottoms", "Read Missing Platforms from file", false, --order);
         RobotPhaseFinalGemColor = config.Bind("RNG Dr. Kahls Robot", "Final Phase Gem Color", RobotPhaseFinalGemColors.Random, --order);
         SallyStageplayPatternEasy = config.Bind("RNG Sally Stageplay", "Phase 1 Simple", SallyStageplayPatternsEasy.Random, --order);
@@ -380,6 +410,13 @@ public class Settings : PluginComponent {
         MousePhaseOnePatternEasy = config.Bind("RNG Werner Werman", "Phase 1 Simple", MousePhaseOnePatternsEasy.Random, --order);
         MousePhaseOnePatternNormal = config.Bind("RNG Werner Werman", "Phase 1 Regular", MousePhaseOnePatternsNormal.Random, --order);
         MousePhaseOnePatternHard = config.Bind("RNG Werner Werman", "Phase 1 Expert", MousePhaseOnePatternsHard.Random, --order);
+        MouseCanMoveMaxXPosition = config.Bind("RNG Werner Werman", "Phase 1 X Movement (250-400 for Simple, 230-425 for Regular, 250-450 for Expert. -1 for random)", -1f, --order);
+        MouseBrokenCanMoveMaxXPosition = config.Bind("RNG Werner Werman", "Phase 2 X Movement (300-400 for Simple, 20-50 for Regular/Expert. -1 for random)", -1f, --order);
+        MouseCherryBombPatternNormal = config.Bind("RNG Werner Werman", "Can Cherry Bomb Pattern Regular", MouseCherryBombPatternsNormal.Random, --order);
+        MouseCherryBombPatternHard = config.Bind("RNG Werner Werman", "Can Cherry Bomb Pattern Expert", MouseCherryBombPatternsHard.Random, --order);
+        MouseCatapultPatternEasy = config.Bind("RNG Werner Werman", "Can Catapult Pattern Simple", MouseCatapultPatternsEasy.Random, --order);
+        MouseCatapultPatternNormal = config.Bind("RNG Werner Werman", "Can Catapult Pattern Regular", MouseCatapultPatternsNormal.Random, --order);
+        MouseCatapultPatternHard = config.Bind("RNG Werner Werman", "Can Catapult Pattern Expert", MouseCatapultPatternsHard.Random, --order);
         PiratePhaseThreeGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 3 Gun Simple", PiratePhaseThreeGunPatternsEasy.Random, --order);
         PiratePhaseFourGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 4 Gun Simple", PiratePhaseFourGunPatternsEasy.Random, --order);
         PiratePhaseSevenGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 7 Gun Simple", PiratePhaseSevenGunPatternsEasy.Random, --order);
@@ -393,7 +430,7 @@ public class Settings : PluginComponent {
         PiratePhaseSevenPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 7 Simple", PiratePhaseSevenPatternsEasy.Random, --order);
         PiratePhaseTwoPatternNormalHard = config.Bind("RNG Captain Brineybeard", "Phase 2 Regular/Expert", PiratePhaseTwoPatternsNormalHard.Random, --order);
         PiratePhaseThreePatternNormalHard = config.Bind("RNG Captain Brineybeard", "Phase 3 Regular/Expert", PiratePhaseThreePatternsNormalHard.Random, --order);
-        PirateDogFishDelay = config.Bind("RNG Captain Brineybeard", "Dogfish Delay (0.3-0.5 for Simple, 1.3-2.0 for Regular, 0.9-1.3 on Expert. -1 for random)", -1f, --order);
+        PirateDogFishDelay = config.Bind("RNG Captain Brineybeard", "Dogfish Delay (0.3-0.5 for Simple, 1.3-2.0 for Regular, 0.9-1.3 for Expert. -1 for random)", -1f, --order);
         FlyingMermaidPhaseOneFirstPatternEasy = config.Bind("RNG Cala Maria", "Phase 1 First Simple", FlyingMermaidPhaseOneFirstPatternsEasy.Random, --order);
         FlyingMermaidPhaseOneSecondPatternEasy = config.Bind("RNG Cala Maria", "Phase 1 Second Simple", FlyingMermaidPhaseOneSecondPatternsEasy.Random, --order);
         FlyingMermaidPhaseOnePatternNormalHard = config.Bind("RNG Cala Maria", "Phase 1 Regular/Expert", FlyingMermaidPhaseOnePatternsNormalHard.Random, --order);
@@ -404,6 +441,8 @@ public class Settings : PluginComponent {
         DicePalaceHeartPosition1 = config.Bind("RNG King Dice", "First Heart", DicePalaceHeartPositions1.Random, --order);
         DicePalaceHeartPosition2 = config.Bind("RNG King Dice", "Second Heart", DicePalaceHeartPositions2.Random, --order);
         DicePalaceHeartPosition3 = config.Bind("RNG King Dice", "Third Heart", DicePalaceHeartPositions3.Random, --order);
+        DicePalaceChipsPatternNormal = config.Bind("RNG King Dice", "Chips Pattern Regular", DicePalaceChipsPatternsNormal.Random, --order);
+        DicePalaceChipsPatternHard = config.Bind("RNG King Dice", "Chips Pattern Expert", DicePalaceChipsPatternsHard.Random, --order);
         DicePalaceCigarSpitAttackCountNormal = config.Bind("RNG King Dice", "Mr. Wheezy Attack Count Regular", DicePalaceCigarSpitAttackCountsNormal.Random, --order);
         DicePalaceCigarSpitAttackCountHard = config.Bind("RNG King Dice", "Mr. Wheezy Attack Count Expert", DicePalaceCigarSpitAttackCountsHard.Random, --order);
         DicePalaceRabbitPattern = config.Bind("RNG King Dice", "Hopus Pocus Pattern", DicePalaceRabbitPatterns.Random, --order);
@@ -418,16 +457,29 @@ public class Settings : PluginComponent {
         DevilPhaseOneSpiderHopCount = config.Bind("RNG The Devil", "Phase 1 Spider Hop Count", DevilPhaseOneSpiderHopCounts.Random, --order);
         DevilSpiderDelay = config.Bind("RNG The Devil", "Phase 1 Spider Delay (0.3-0.7, -1 for random)", -1f, --order);
         DevilPhaseOnePitchforkType = config.Bind("RNG The Devil", "Phase 1 Pitchfork Type", DevilPhaseOnePitchforkTypes.Random, --order);
+        DevilPhaseOneBouncerParryIndex = config.Bind("RNG The Devil", "Phase 1 Bouncer Parry Index", DevilPhaseOneBouncerParryIndexes.Random, --order);
+        DevilPhaseOneRingParryIndex = config.Bind("RNG The Devil", "Phase 1 Ring Parry Index", DevilPhaseOneRingParryIndexes.Random, --order);
         DevilPhaseOneBouncerAngleNormal = config.Bind("RNG The Devil", "Phase 1 Bouncer Angle Regular", DevilPhaseOneBouncerAnglesNormal.Random, --order);
         DevilPhaseOneBouncerAngleHard = config.Bind("RNG The Devil", "Phase 1 Bouncer Angle Expert", DevilPhaseOneBouncerAnglesHard.Random, --order);
         DevilPhaseTwoPatternNormal = config.Bind("RNG The Devil", "Phase 2 Regular", DevilPhaseTwoPatternsNormal.Random, --order);
         DevilPhaseTwoPatternHard = config.Bind("RNG The Devil", "Phase 2 Expert", DevilPhaseTwoPatternsHard.Random, --order);
         DevilPhaseTwoBombEyeDirection = config.Bind("RNG The Devil", "Phase 2 Bomb Direction", DevilPhaseTwoBombEyeDirections.Random, --order);
-        DevilPhaseThreeHandsSkullType = config.Bind("RNG The Devil", "Phase 3 Skull Type", DevilPhaseThreeHandsSkullTypes.Random, --order);
+        DevilPhaseTwoPlatformRisePattern = config.Bind("RNG The Devil", "Phase 2 Platform Rise Pattern", DevilPhaseTwoPlatformRisePatterns.Random, --order);
+        DevilPhaseTwoPlatformRiseDelay = config.Bind("RNG The Devil", "Phase 2 Platform Rise Delay (2.0-3.5 for Regular, 1.5-2.8 for Expert. -1 for random)", -1f, --order);
+        DevilPhaseThreeSkullType = config.Bind("RNG The Devil", "Phase 3 Skull Type", DevilPhaseThreeSkullTypes.Random, --order);
         DevilTest = config.Bind("RNG The Devil", "EXPERIMENTAL - Spider Offset Selection", "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19", --order);
 
 #if v1_3
-        RunRunnersSnoutPosition = config.Bind("RNG Moonshine Mob", "Snout Position", RumRunnersSnoutPositions.Random, --order);
+        OldManPhaseOnePlatformRemoveOrderNormal = config.Bind("RNG Glumstone The Giant", "Phase 1 Platform Fall Order Regular", OldManPhaseOnePlatformRemoveOrdersNormal.Random, --order);
+        OldManPhaseTwoLeftPuppetPatternNormal = config.Bind("RNG Glumstone The Giant", "Phase 2 Left Puppet Regular", OldManPhaseTwoLeftPuppetPatternsNormal.Random, --order);
+        OldManPhaseTwoRightPuppetPatternNormal = config.Bind("RNG Glumstone The Giant", "Phase 2 Right Puppet Regular", OldManPhaseTwoRightPuppetPatternsNormal.Random, --order);
+        OldManPhaseTwoLeftPuppetPatternHard = config.Bind("RNG Glumstone The Giant", "Phase 2 Left Puppet Expert", OldManPhaseTwoLeftPuppetPatternsHard.Random, --order);
+        OldManPhaseTwoRightPuppetPatternHard = config.Bind("RNG Glumstone The Giant", "Phase 2 Right Puppet Expert", OldManPhaseTwoRightPuppetPatternsHard.Random, --order);
+        AirplanePhaseOnePattern = config.Bind("RNG The Howling Aces", "Phase 1 Pattern", AirplanePhaseOnePatterns.Random, --order);
+        AirplanePhaseOneSide = config.Bind("RNG The Howling Aces", "Phase 1 Side", AirplanePhaseOneSides.Random, --order);
+        AirplanePhaseOneParryPattern = config.Bind("RNG The Howling Aces", "Phase 1 Parry Pattern", AirplanePhaseOneParryPatterns.Random, --order);
+        AirplanePhaseOneAttackDelay = config.Bind("RNG The Howling Aces", "Phase 1 Attack Delay (2.5-4.0 for Simple, 2.0-3.5 for Regular, 1.5-3.0 for Expert. -1 for random)", -1f, --order);
+        RumRunnersPhaseThreeSnoutPosition = config.Bind("RNG Moonshine Mob", "Phase 3 Snout Position", RumRunnersPhaseThreeSnoutPositions.Random, --order);
         SaltbakerPhaseOnePattern = config.Bind("RNG Chef Saltbaker", "Phase 1 Pattern", SaltbakerPhaseOnePatterns.Random, --order);
         SaltbakerPhaseThreeSawPattern = config.Bind("RNG Chef Saltbaker", "Phase 3 Saw Pattern", SaltbakerPhaseThreeSawPatterns.Random, --order);
 #endif

@@ -9,6 +9,13 @@ namespace BepInEx.CupheadDebugMod.Config {
             Never
         }
 
+        public enum RngOverride {
+            Custom,
+            Vanilla,
+            [Description("Perfect RNG (1.1+ Any%)")]
+            PerfectRng11
+        }
+
 #if v1_3
         public enum RelicLevels {
             Default,
@@ -108,6 +115,36 @@ namespace BepInEx.CupheadDebugMod.Config {
             Snake,
             Tiger,
             Bison
+        }
+
+        public enum SlimePhaseOneJumpCountsNormal {
+            Random,
+            [Description("5")]
+            Five = 5,
+            [Description("6")]
+            Six = 6,
+            [Description("7")]
+            Seven = 7
+        }
+
+        public enum SlimePhaseOneJumpPatternsNormal {
+            Random,
+            High01,
+            Low01,
+            High02,
+            Low02,
+            Delay,
+            Low03,
+            Random01,
+            High03,
+            Low04,
+            High04,
+            Low05,
+            Low06,
+            High05,
+            Random02,
+            Low07,
+            Low08
         }
 
         public enum FlyingBlimpPhaseBlimp2PatternsEasy {
@@ -405,107 +442,64 @@ namespace BepInEx.CupheadDebugMod.Config {
 
         public enum FlyingBirdPhaseOnePatternsEasy {
             Random,
-            [Description("Eggs")]
-            Eggs1,
-            [Description("Lasers")]
-            Lasers1,
-            [Description("Eggs")]
-            Eggs2,
-            [Description("Eggs")]
-            Eggs3,
-            [Description("Lasers")]
-            Lasers2
+            Eggs01,
+            Lasers01,
+            Eggs02,
+            Eggs03,
+            Lasers02
         }
 
         public enum FlyingBirdPhaseTwoPatternsEasy {
             Random,
-            [Description("Eggs")]
-            Eggs1,
-            [Description("Eggs")]
-            Eggs2,
-            [Description("Eggs")]
-            Eggs3,
-            [Description("Lasers")]
-            Lasers1,
-            [Description("Eggs")]
-            Eggs4,
-            [Description("Eggs")]
-            Eggs5,
-            [Description("Eggs")]
-            Eggs6,
-            [Description("Eggs")]
-            Eggs7,
-            [Description("Lasers")]
-            Lasers2
+            Eggs01,
+            Eggs02,
+            Eggs03,
+            Lasers01,
+            Eggs04,
+            Eggs05,
+            Eggs06,
+            Eggs07,
+            Lasers02
         }
 
         public enum FlyingBirdPhaseOnePatternsNormal {
             Random,
-            [Description("Eggs")]
-            Eggs1,
-            [Description("Lasers")]
-            Lasers1
+            Eggs,
+            Lasers
         }
 
         public enum FlyingBirdPhaseTwoPatternsNormal {
             Random,
-            [Description("Eggs")]
-            Eggs1,
-            [Description("Eggs")]
-            Eggs2,
-            [Description("Eggs")]
-            Eggs3,
-            [Description("Lasers")]
-            Lasers1,
-            [Description("Eggs")]
-            Eggs4,
-            [Description("Eggs")]
-            Eggs5,
-            [Description("Eggs")]
-            Eggs6,
-            [Description("Eggs")]
-            Eggs7,
-            [Description("Lasers")]
-            Lasers2
+            Eggs01,
+            Eggs02,
+            Eggs03,
+            Lasers01,
+            Eggs04,
+            Eggs05,
+            Eggs06,
+            Eggs07,
+            Lasers02
         }
 
         public enum FlyingBirdPhaseOnePatternsHard {
             Random,
-            [Description("Eggs")]
             Eggs01,
-            [Description("Eggs")]
             Eggs02,
-            [Description("Eggs")]
             Eggs03,
-            [Description("Lasers")]
             Lasers01,
-            [Description("Eggs")]
             Eggs04,
-            [Description("Eggs")]
             Eggs05,
-            [Description("Lasers")]
             Lasers02,
-            [Description("Eggs")]
             Eggs06,
-            [Description("Eggs")]
             Eggs07,
-            [Description("Eggs")]
             Eggs08,
-            [Description("Lasers")]
             Lasers03,
-            [Description("Eggs")]
             Eggs09,
-            [Description("Eggs")]
             Eggs10,
-            [Description("Lasers")]
             Lasers04,
-            [Description("Eggs")]
             Eggs11,
-            [Description("Eggs")]
             Eggs12,
-            [Description("Eggs")]
             Eggs13,
-            [Description("Lasers")]
             Lasers05,
         }
 
@@ -811,21 +805,13 @@ namespace BepInEx.CupheadDebugMod.Config {
 
         public enum ClownHorseTypes {
             Random,
-            [Description("Green")]
             Green1,
-            [Description("Yellow")]
             Yellow1,
-            [Description("Yellow")]
             Yellow2,
-            [Description("Green")]
             Green2,
-            [Description("Yellow")]
             Yellow3,
-            [Description("Green")]
             Green3,
-            [Description("Green")]
             Green4,
-            [Description("Yellow")]
             Yellow4
         }
 
@@ -984,8 +970,6 @@ namespace BepInEx.CupheadDebugMod.Config {
             One_2
         }
 
-
-
         public enum DragonPhaseOneLaserPatternsNormal {
             Random,
             [Description("3")]
@@ -1074,83 +1058,50 @@ namespace BepInEx.CupheadDebugMod.Config {
 
         public enum SallyStageplayPatternsEasy {
             Random,
-            [Description("Jump")]
             Jump1,
-            [Description("Kiss")]
             Kiss1,
-            [Description("Teleport")]
             Teleport1,
-            [Description("Jump")]
             Jump2,
-            [Description("Kiss")]
             Kiss2,
-            [Description("Jump")]
             Jump3,
-            [Description("Teleport")]
             Teleport2,
-            [Description("Kiss")]
             Kiss3,
-            [Description("Jump")]
             Jump4,
-            [Description("Teleport")]
             Teleport3
         }
 
         public enum SallyStageplayPatternsNormalHard {
             Random,
-            [Description("Jump")]
             Jump1,
-            [Description("Kiss")]
             Kiss1,
-            [Description("Teleport")]
             Teleport1,
-            [Description("Jump")]
             Jump2,
-            [Description("Kiss")]
             Kiss2,
-            [Description("Jump")]
             Jump3,
-            [Description("Teleport")]
             Teleport2
         }
 
         public enum SallyStageplayJumpTypesEasy {
             Random,
-            [Description("DiveKick")]
             DiveKick1,
-            [Description("DiveKick")]
             DiveKick2,
-            [Description("DoubleJump")]
             DoubleJump1,
-            [Description("DiveKick")]
             DiveKick3,
-            [Description("DiveKick")]
             DiveKick4,
-            [Description("DiveKick")]
             DiveKick5,
-            [Description("DoubleJump")]
             DoubleJump2
         }
 
         public enum SallyStageplayJumpTypesNormalHard {
             Random,
-            [Description("DiveKick")]
             DiveKick1,
-            [Description("DiveKick")]
             DiveKick2,
-            [Description("DoubleJump")]
             DoubleJump1,
-            [Description("DiveKick")]
             DiveKick3,
-            [Description("DoubleJump")]
             DoubleJump2,
-            [Description("DiveKick")]
             DiveKick4,
-            [Description("DiveKick")]
             DiveKick5,
-            [Description("DiveKick")]
             DiveKick6,
-            [Description("DoubleJump")]
             DoubleJump3
         }
 
@@ -1286,6 +1237,59 @@ namespace BepInEx.CupheadDebugMod.Config {
             Dash4
         }
 
+        public enum MouseCherryBombPatternsNormal {
+            Random,
+            [Description("2-2-2 #1")]
+            Two_Two_Two_1,
+            [Description("3-2")]
+            Three_Two,
+            [Description("2-2-2 #2")]
+            Two_Two_Two_2,
+            [Description("2-3")]
+            Two_Three
+        }
+
+        public enum MouseCherryBombPatternsHard {
+            Random,
+            [Description("3-3 #1")]
+            Three_Three_1,
+            [Description("4-2")]
+            Four_Two,
+            [Description("2-2-2 #1")]
+            Two_Two_Two_1,
+            [Description("3-3 #2")]
+            Three_Three_2,
+            [Description("2-4")]
+            Two_Four,
+            [Description("2-2-2 #2")]
+            Two_Two_Two_2
+        }
+
+        public enum MouseCatapultPatternsEasy {
+            Random,
+            CGGGN,
+            GGGNC,
+            CGGNG,
+            BGGCG
+        }
+
+        public enum MouseCatapultPatternsNormal {
+            Random,
+            BNGCG,
+            CGPGC,
+            PGGCN,
+            BPGGN
+        }
+
+        public enum MouseCatapultPatternsHard {
+            Random,
+            BNGCG,
+            CBGGN,
+            NGGCB,
+            CGBGN,
+            NBGGC
+        }
+
         public enum PiratePhaseThreeGunPatternsEasy {
             Random,
             [Description("1-2")]
@@ -1398,33 +1402,19 @@ namespace BepInEx.CupheadDebugMod.Config {
 
         public enum PiratePhaseSevenPatternsEasy {
             Random,
-            [Description("Peashot")]
             Peashot01,
-            [Description("Peashot")]
             Peashot02,
-            [Description("Peashot")]
             Peashot03,
-            [Description("Shark")]
             Shark01,
-            [Description("Peashot")]
             Peashot04,
-            [Description("Peashot")]
             Peashot05,
-            [Description("Shark")]
             Shark02,
-            [Description("Peashot")]
             Peashot06,
-            [Description("Peashot")]
             Peashot07,
-            [Description("Shark")]
             Shark03,
-            [Description("Peashot")]
             Peashot08,
-            [Description("Peashot")]
             Peashot09,
-            [Description("Peashot")]
             Peashot10,
-            [Description("Shark")]
             Shark04,
         }
 
@@ -1571,51 +1561,68 @@ namespace BepInEx.CupheadDebugMod.Config {
             Two3,
         }
 
+        public enum DicePalaceChipsPatternsNormal {
+            Random,
+            [Description("1-2-3-4,5-6-7-8")] OneTwoThreeFour_FiveSixSevenEight,
+            [Description("1-8,2-7,3-4-5-6")] OneEight_TwoSeven_ThreeFourFiveSix,
+            [Description("3-4-5,1-2-6-7-8")] ThreeFourFive_OneTwoSixSevenEight,
+            [Description("5-6-7-8,1-2-3-4")] FiveSixSevenEight_OneTwoThreeFour,
+            [Description("5-6-7,1-2-8,3-4")] FiveSixSeven_OneTwoEight_ThreeFour,
+            [Description("1-2-3-4-5-6,7-8")] OneTwoThreeFourFiveSix_SevenEight,
+            [Description("1-2-8,7-6,3-4-5")] OneTwoEight_SevenSix_ThreeFourFive,
+            [Description("2-3-4-5,1-6-7-8")] TwoThreeFourFive_OneSixSevenEight,
+            [Description("8-5,2-3-4,1-6-7")] EightFive_TwoThreeFour_OneSixSeven,
+            [Description("1-8,2-3-4-5,6-7")] OneEight_TwoThreeFourFive_SixSeven,
+            [Description("3-4-5,1-6-7,2-8")] ThreeFourFive_OneSixSeven_TwoEight,
+            [Description("6-7-8,3-4-5,1-2")] SixSevenEight_ThreeFourFive_OneTwo,
+            [Description("5-6-7,1-8,2-3-4")] FiveSixSeven_OneEight_TwoThreeFour,
+            [Description("1-2-7-8,3-4-5-6")] OneTwoSevenEight_ThreeFourFiveSix
+        }
+
+        public enum DicePalaceChipsPatternsHard {
+            Random,
+            [Description("1-2-8,3-4-5,6-7")] OneTwoEight_ThreeFourFive_SixSeven,
+            [Description("1-2,3-8,4-5-6-7")] OneTwo_ThreeEight_FourFiveSixSeven,
+            [Description("1-2-3-4,5-6-7-8")] OneTwoThreeFour_FiveSixSevenEight,
+            [Description("2-4-6-1,3-8,5-7")] TwoFourSixOne_ThreeEight_FiveSeven,
+            [Description("1-7-8,2-3,4-5-6")] OneSevenEight_TwoThree_FourFiveSix,
+            [Description("2-3-8,1-5-6,4-7")] TwoThreeEight_OneFiveSix_FourSeven,
+            [Description("3-4-5-6,1-2-7-8")] ThreeFourFiveSix_OneTwoSevenEight,
+            [Description("4-5-6-7,1-2-3-8")] FourFiveSixSeven_OneTwoThreeEight,
+            [Description("5-6-7-8,1-2-3-4")] FiveSixSevenEight_OneTwoThreeFour_1,
+            [Description("2-3-8-1,4-5-6-7")] TwoThreeEightOne_FourFiveSixSeven,
+            [Description("3-4-5,1-2-6-7-8")] ThreeFourFive_OneTwoSixSevenEight,
+            [Description("1-8,3-4-5,2-6-7")] OneEight_ThreeFourFive_TwoSixSeven,
+            [Description("4-5-6,1-2-3-7-8")] FourFiveSix_OneTwoThreeSevenEight,
+            [Description("5-6-7-8,1-2-3-4")] FiveSixSevenEight_OneTwoThreeFour_2,
+            [Description("2-3-4,1-5-6-7-8")] TwoThreeFour_OneFiveSixSevenEight,
+            [Description("3-4-5-6,1-8,2-7")] ThreeFourFiveSix_OneEight_TwoSeven,
+            [Description("1-2-3-8,4-5-6-7")] OneTwoThreeEight_FourFiveSixSeven
+        }
+
         public enum DicePalaceRabbitPatterns {
             Random,
-            [Description("Wand")]
             Wand01,
-            [Description("Parry")]
             Parry01,
-            [Description("Wand")]
             Wand02,
-            [Description("Wand")]
             Wand03,
-            [Description("Parry")]
             Parry02,
-            [Description("Wand")]
             Wand04,
-            [Description("Wand")]
             Wand05,
-            [Description("Parry")]
             Parry03,
-            [Description("Wand")]
             Wand06,
-            [Description("Parry")]
             Parry04,
-            [Description("Wand")]
             Wand07,
-            [Description("Parry")]
             Parry05,
-            [Description("Wand")]
             Wand08,
-            [Description("Wand")]
             Wand09,
-            [Description("Parry")]
             Parry06,
-            [Description("Wand")]
             Wand10,
-            [Description("Wand")]
             Wand11,
-            [Description("Wand")]
             Wand12,
-            [Description("Parry")]
             Parry07,
-            [Description("Wand")]
             Wand13,
-            [Description("Wand")]
             Wand14,
-            [Description("Parry")]
             Parry08
         }
 
@@ -1667,6 +1674,34 @@ namespace BepInEx.CupheadDebugMod.Config {
             Bouncer,
             Pinwheel,
             Ring
+        }
+
+        public enum DevilPhaseOneBouncerParryIndexes {
+            Random,
+            [Description("1")]
+            One,
+            [Description("2")]
+            Two,
+            [Description("3")]
+            Three,
+            [Description("4")]
+            Four
+        }
+
+        public enum DevilPhaseOneRingParryIndexes {
+            Random,
+            [Description("1")]
+            One,
+            [Description("2")]
+            Two,
+            [Description("3")]
+            Three,
+            [Description("4")]
+            Four,
+            [Description("5")]
+            Five,
+            [Description("6")]
+            Six
         }
 
         public enum DevilPhaseOneBouncerAnglesNormal {
@@ -1848,7 +1883,41 @@ namespace BepInEx.CupheadDebugMod.Config {
             Right
         }
 
-        public enum DevilPhaseThreeHandsSkullTypes {
+        public enum DevilPhaseTwoPlatformRisePatterns {
+            Random,
+            [Description("1")]
+            One,
+            [Description("3")]
+            Two,
+            [Description("2")]
+            Three,
+            [Description("5")]
+            Four,
+            [Description("4")]
+            Five,
+            [Description("1")]
+            Six,
+            [Description("5")]
+            Seven,
+            [Description("4")]
+            Eight,
+            [Description("2")]
+            Nine,
+            [Description("3")]
+            Ten,
+            [Description("1")]
+            Eleven,
+            [Description("3")]
+            Twelve,
+            [Description("5")]
+            Thirteen,
+            [Description("4")]
+            Fourteen,
+            [Description("2")]
+            Fifteen
+        }
+
+        public enum DevilPhaseThreeSkullTypes {
             Random,
             Regular1,
             Regular2,
@@ -1858,41 +1927,139 @@ namespace BepInEx.CupheadDebugMod.Config {
         }
 
 #if v1_3
-        public enum RumRunnersSnoutPositions {
+        public enum OldManPhaseOnePlatformRemoveOrdersNormal {
             Random,
-            [Description("Low")]
+            [Description("0,2")]
+            Order01,
+            [Description("0,3")]
+            Order02,
+            [Description("0,4")]
+            Order03,
+            [Description("1,3")]
+            Order04,
+            [Description("3,1")]
+            Order05,
+            [Description("2,0")]
+            Order06,
+            [Description("3,0")]
+            Order07,
+            [Description("2,4")]
+            Order08,
+            [Description("0,1")]
+            Order09,
+            [Description("0,2")]
+            Order10,
+            [Description("0,3")]
+            Order11
+        }
+
+        public enum OldManPhaseTwoLeftPuppetPatternsNormal {
+            Random,
             Low01,
-            [Description("Mid")]
             Mid01,
-            [Description("High")]
             High01,
-            [Description("Low")]
             Low02,
-            [Description("High")]
-            High02,
-            [Description("Low")]
-            Low03,
-            [Description("Low")]
-            Low04,
-            [Description("Mid")]
             Mid02,
-            [Description("High")]
-            High03,
-            [Description("Mid")]
+            Low03,
+            High02,
             Mid03,
-            [Description("Mid")]
+            Low04
+        }
+
+        public enum OldManPhaseTwoRightPuppetPatternsNormal {
+            Random,
+            High01,
+            High02,
+            Low01,
+            Mid01,
+            High03,
+            Low02,
+            Mid02,
+            Low03
+        }
+
+        public enum OldManPhaseTwoLeftPuppetPatternsHard {
+            Random,
+            High01,
+            High02,
+            Low01,
+            Mid01,
+            High03,
+            Low02,
+            Mid02,
+            Low03
+        }
+
+        public enum OldManPhaseTwoRightPuppetPatternsHard {
+            Random,
+            Low01,
+            Mid01,
+            High01,
+            Low02,
+            Mid02,
+            Low03,
+            High02,
+            Mid03,
+            Low04
+        }
+
+        public enum AirplanePhaseOnePatterns {
+            Random,
+            Parachute,
+            Cat
+        }
+
+        public enum AirplanePhaseOneSides {
+            Random,
+            [Description("L")]
+            Left01,
+            [Description("R")]
+            Right01,
+            [Description("R")]
+            Right02,
+            [Description("L")]
+            Left02,
+            [Description("R")]
+            Right03,
+            [Description("L")]
+            Left03,
+            [Description("L")]
+            Left04,
+            [Description("R")]
+            Right04,
+            [Description("L")]
+            Left05,
+            [Description("R")]
+            Right05
+        }
+
+        public enum AirplanePhaseOneParryPatterns {
+            Random,
+            Regular01,
+            Regular02,
+            Parry01,
+            Regular03,
+            Parry02
+        }
+
+        public enum RumRunnersPhaseThreeSnoutPositions {
+            Random,
+            Low01,
+            Mid01,
+            High01,
+            Low02,
+            High02,
+            Low03,
+            Low04,
+            Mid02,
+            High03,
+            Mid03,
             Mid04,
-            [Description("Low")]
             Low05,
-            [Description("High")]
             High04,
-            [Description("High")]
             High05,
-            [Description("Mid")]
             Mid05,
-            [Description("Low")]
             Low06,
-            [Description("Mid")]
             Mid06
         }
 

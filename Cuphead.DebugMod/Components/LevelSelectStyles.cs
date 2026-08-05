@@ -61,7 +61,7 @@ public static class LevelSelectList_SetupList_Patch
             return;
         }
 
-        if (!Settings.HideUnusedLevels.Value)
+        if (Settings.ShowUnusedLevels.Value)
         {
             return;
         }

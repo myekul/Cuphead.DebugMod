@@ -198,6 +198,32 @@ internal class DevilPatternSelector : PluginComponent {
         }
     }
 
+    [HarmonyPatch(typeof(DevilLevelSittingDevil), nameof(DevilLevelSittingDevil.pitchforkFourFlameBouncer_cr), MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    public static void PhaseOneBouncerParryableProjectileManipulator(ILContext il) {
+        ILCursor ilCursor = new(il);
+        while (ilCursor.TryGotoNext(MoveType.After, i =>
+                   i.OpCode == OpCodes.Call && i.Operand.ToString().Contains("UnityEngine.Random::Range(System.Int32,System.Int32)"))) {
+            ilCursor.EmitDelegate<Func<int, int>>(randomIndex =>
+                DevilPhaseOneBouncerParryIndex.Value == DevilPhaseOneBouncerParryIndexes.Random
+                    ? randomIndex
+                    : (int)DevilPhaseOneBouncerParryIndex.Value - 1);
+        }
+    }
+
+    [HarmonyPatch(typeof(DevilLevelSittingDevil), nameof(DevilLevelSittingDevil.pitchforkSixFlameRing_cr), MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    public static void PhaseOneRingParryableProjectileManipulator(ILContext il) {
+        ILCursor ilCursor = new(il);
+        while (ilCursor.TryGotoNext(MoveType.After, i =>
+                   i.OpCode == OpCodes.Call && i.Operand.ToString().Contains("UnityEngine.Random::Range(System.Int32,System.Int32)"))) {
+            ilCursor.EmitDelegate<Func<int, int>>(randomIndex =>
+                DevilPhaseOneRingParryIndex.Value == DevilPhaseOneRingParryIndexes.Random
+                    ? randomIndex
+                    : (int)DevilPhaseOneRingParryIndex.Value - 1);
+        }
+    }
+
     [HarmonyPatch(typeof(DevilLevel), nameof(DevilLevel.OnStateChanged))]
     [HarmonyPrefix]
     public static void PhaseTwoPatternManipulator(ref DevilLevel __instance) {
@@ -229,12 +255,34 @@ internal class DevilPatternSelector : PluginComponent {
         }
     }
 
+    [HarmonyPatch(typeof(DevilLevelGiantHead), "platforms_cr", MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    public static void PhaseTwoPlatformManipulator(ILContext il) {
+        ILCursor ilCursor = new(il);
+        if (ilCursor.TryGotoNext(MoveType.After, i =>
+                i.OpCode == OpCodes.Call && i.Operand.ToString().Contains("UnityEngine.Random::Range(System.Int32,System.Int32)"))) {
+            ilCursor.EmitDelegate<Func<int, int>>(randomIndex =>
+                DevilPhaseTwoPlatformRisePattern.Value == DevilPhaseTwoPlatformRisePatterns.Random
+                    ? randomIndex
+                    : (int)DevilPhaseTwoPlatformRisePattern.Value - 2);
+        }
+
+        ilCursor.Index = 0;
+        while (ilCursor.TryGotoNext(MoveType.After, i =>
+                   i.OpCode == OpCodes.Callvirt && i.Operand.ToString().Contains("MinMax::RandomFloat"))) {
+            ilCursor.EmitDelegate<Func<float, float>>(randomDelay =>
+                DevilPhaseTwoPlatformRiseDelay.Value != -1f
+                    ? DevilPhaseTwoPlatformRiseDelay.Value
+                    : randomDelay);
+        }
+    }
+
     [HarmonyPatch(typeof(DevilLevelHand), nameof(DevilLevelHand.StartPattern))]
     [HarmonyPostfix]
     public static void DevilPhaseThreeSkullPatternManipulator(DevilLevelHand __instance)
     {
-        if (DevilPhaseThreeHandsSkullType.Value != DevilPhaseThreeHandsSkullTypes.Random) {
-            __instance.pinkStringIndex = (int) DevilPhaseThreeHandsSkullType.Value - 1;
+        if (DevilPhaseThreeSkullType.Value != DevilPhaseThreeSkullTypes.Random) {
+            __instance.pinkStringIndex = (int) DevilPhaseThreeSkullType.Value - 1;
         }
     }
 }

@@ -16,8 +16,8 @@ internal class RumRunnersPatternSelector : PluginComponent {
     [HarmonyPatch(typeof(RumRunnersLevelAnteater), nameof(RumRunnersLevelAnteater.LevelInit))]
     [HarmonyPostfix]
     private static void SnoutPositionManipulator(ref RumRunnersLevelAnteater __instance) {
-        if (Settings.RunRunnersSnoutPosition.Value != RumRunnersSnoutPositions.Random) {
-            __instance.snoutPositionPattern.subIndex = Utility.GetUserPattern<RumRunnersSnoutPositions>((int) Settings.RunRunnersSnoutPosition.Value);
+        if (Settings.RumRunnersPhaseThreeSnoutPosition.Value != RumRunnersPhaseThreeSnoutPositions.Random) {
+            __instance.snoutPositionPattern.subIndex = Utility.GetUserPattern<RumRunnersPhaseThreeSnoutPositions>((int) Settings.RumRunnersPhaseThreeSnoutPosition.Value);
         }
     }
 }
