@@ -412,11 +412,11 @@ public class Settings : PluginComponent {
         MousePhaseOnePatternHard = config.Bind("RNG Werner Werman", "Phase 1 Expert", MousePhaseOnePatternsHard.Random, --order);
         MouseCanMoveMaxXPosition = config.Bind("RNG Werner Werman", "Phase 1 X Movement (250-400 for Simple, 230-425 for Regular, 250-450 for Expert. -1 for random)", -1f, --order);
         MouseBrokenCanMoveMaxXPosition = config.Bind("RNG Werner Werman", "Phase 2 X Movement (300-400 for Simple, 20-50 for Regular/Expert. -1 for random)", -1f, --order);
-        MouseCherryBombPatternNormal = config.Bind("RNG Werner Werman", "Can Cherry Bomb Pattern Regular", MouseCherryBombPatternsNormal.Random, --order);
-        MouseCherryBombPatternHard = config.Bind("RNG Werner Werman", "Can Cherry Bomb Pattern Expert", MouseCherryBombPatternsHard.Random, --order);
-        MouseCatapultPatternEasy = config.Bind("RNG Werner Werman", "Can Catapult Pattern Simple", MouseCatapultPatternsEasy.Random, --order);
-        MouseCatapultPatternNormal = config.Bind("RNG Werner Werman", "Can Catapult Pattern Regular", MouseCatapultPatternsNormal.Random, --order);
-        MouseCatapultPatternHard = config.Bind("RNG Werner Werman", "Can Catapult Pattern Expert", MouseCatapultPatternsHard.Random, --order);
+        MouseCherryBombPatternNormal = config.Bind("RNG Werner Werman", "Phase 1 Cherry Bomb Pattern Regular", MouseCherryBombPatternsNormal.Random, --order);
+        MouseCherryBombPatternHard = config.Bind("RNG Werner Werman", "Phase 1 Cherry Bomb Pattern Expert", MouseCherryBombPatternsHard.Random, --order);
+        MouseCatapultPatternEasy = config.Bind("RNG Werner Werman", "Phase 1 Catapult Pattern Simple", MouseCatapultPatternsEasy.Random, --order);
+        MouseCatapultPatternNormal = config.Bind("RNG Werner Werman", "Phase 1 Catapult Pattern Regular", MouseCatapultPatternsNormal.Random, --order);
+        MouseCatapultPatternHard = config.Bind("RNG Werner Werman", "Phase 1 Catapult Pattern Expert", MouseCatapultPatternsHard.Random, --order);
         PiratePhaseThreeGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 3 Gun Simple", PiratePhaseThreeGunPatternsEasy.Random, --order);
         PiratePhaseFourGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 4 Gun Simple", PiratePhaseFourGunPatternsEasy.Random, --order);
         PiratePhaseSevenGunPatternEasy = config.Bind("RNG Captain Brineybeard", "Phase 7 Gun Simple", PiratePhaseSevenGunPatternsEasy.Random, --order);
