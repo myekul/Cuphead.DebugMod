@@ -53,15 +53,19 @@ internal class OldManPatternSelector : PluginComponent {
     }
 
     private static int GetLeftPuppetPattern() {
-        return Level.ScoringData.difficulty == Level.Mode.Hard
-            ? (int)OldManPhaseTwoLeftPuppetPatternHard.Value
-            : (int)OldManPhaseTwoLeftPuppetPatternNormal.Value;
+        return Level.ScoringData.difficulty switch {
+            Level.Mode.Easy => (int)OldManPhaseTwoLeftPuppetPatternEasy.Value,
+            Level.Mode.Hard => (int)OldManPhaseTwoLeftPuppetPatternHard.Value,
+            _ => (int)OldManPhaseTwoLeftPuppetPatternNormal.Value
+        };
     }
 
     private static int GetRightPuppetPattern() {
-        return Level.ScoringData.difficulty == Level.Mode.Hard
-            ? (int)OldManPhaseTwoRightPuppetPatternHard.Value
-            : (int)OldManPhaseTwoRightPuppetPatternNormal.Value;
+        return Level.ScoringData.difficulty switch {
+            Level.Mode.Easy => (int)OldManPhaseTwoRightPuppetPatternEasy.Value,
+            Level.Mode.Hard => (int)OldManPhaseTwoRightPuppetPatternHard.Value,
+            _ => (int)OldManPhaseTwoRightPuppetPatternNormal.Value
+        };
     }
 }
 #endif

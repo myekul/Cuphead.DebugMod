@@ -73,6 +73,7 @@ public class Settings : PluginComponent {
     public static ConfigEntry<bool> SkipToLastSafeSpace;
 
     public static ConfigEntry<RngOverride> RngOverride;
+    public static ConfigEntry<bool> ShowSimpleExpertRNG;
     public static ConfigEntry<bool> ShowUnusedLevels;
 
     public static ConfigEntry<ForestPlatformingAcornSpawnerDirections> ForestPlatformingAcornSpawnerDirection;
@@ -229,6 +230,8 @@ public class Settings : PluginComponent {
 
 #if v1_3
     public static ConfigEntry<OldManPhaseOnePlatformRemoveOrdersNormal> OldManPhaseOnePlatformRemoveOrderNormal;
+    public static ConfigEntry<OldManPhaseTwoLeftPuppetPatternsEasy> OldManPhaseTwoLeftPuppetPatternEasy;
+    public static ConfigEntry<OldManPhaseTwoRightPuppetPatternsEasy> OldManPhaseTwoRightPuppetPatternEasy;
     public static ConfigEntry<OldManPhaseTwoLeftPuppetPatternsNormal> OldManPhaseTwoLeftPuppetPatternNormal;
     public static ConfigEntry<OldManPhaseTwoRightPuppetPatternsNormal> OldManPhaseTwoRightPuppetPatternNormal;
     public static ConfigEntry<OldManPhaseTwoLeftPuppetPatternsHard> OldManPhaseTwoLeftPuppetPatternHard;
@@ -315,7 +318,10 @@ public class Settings : PluginComponent {
         SkipToLastSafeSpace = config.Bind("King Dice", "Skip To Last Safe Space", false, --order);
 
         RngOverride = config.Bind("RNG", "RNG Override", BepInEx.CupheadDebugMod.Config.SettingsEnums.RngOverride.Custom, --order);
-        ShowUnusedLevels = config.Bind("Misc", "Show Unused Levels", false, --order);
+        ShowSimpleExpertRNG = config.Bind("RNG", "Show Simple / Expert RNG", false, --order);
+        ConfigExtensions.SetDifficultySpecificOptionsVisible(ShowSimpleExpertRNG.Value);
+        ShowSimpleExpertRNG.SettingChanged += ShowSimpleExpertRNGOnSettingChanged;
+        ShowUnusedLevels = config.Bind("Misc", "Show Unused Levels / Items", false, --order);
 
         ForestPlatformingAcornSpawnerDirection = config.Bind("RNG Forest Follies", "Acorn Spawner Facing Direction", ForestPlatformingAcornSpawnerDirections.Random, --order);
         ForestPlatformingAcornSpawnerYIndex = config.Bind("RNG Forest Follies", "Acorn Spawner Y Coordinate", ForestPlatformingAcornSpawnerYIndexes.Random, --order);
@@ -441,8 +447,8 @@ public class Settings : PluginComponent {
         DicePalaceHeartPosition1 = config.Bind("RNG King Dice", "First Heart", DicePalaceHeartPositions1.Random, --order);
         DicePalaceHeartPosition2 = config.Bind("RNG King Dice", "Second Heart", DicePalaceHeartPositions2.Random, --order);
         DicePalaceHeartPosition3 = config.Bind("RNG King Dice", "Third Heart", DicePalaceHeartPositions3.Random, --order);
-        DicePalaceChipsPatternNormal = config.Bind("RNG King Dice", "Chips Pattern Regular", DicePalaceChipsPatternsNormal.Random, --order);
-        DicePalaceChipsPatternHard = config.Bind("RNG King Dice", "Chips Pattern Expert", DicePalaceChipsPatternsHard.Random, --order);
+        DicePalaceChipsPatternNormal = config.Bind("RNG King Dice", "Chips Bettigan Pattern Regular", DicePalaceChipsPatternsNormal.Random, --order);
+        DicePalaceChipsPatternHard = config.Bind("RNG King Dice", "Chips Bettigan Pattern Expert", DicePalaceChipsPatternsHard.Random, --order);
         DicePalaceCigarSpitAttackCountNormal = config.Bind("RNG King Dice", "Mr. Wheezy Attack Count Regular", DicePalaceCigarSpitAttackCountsNormal.Random, --order);
         DicePalaceCigarSpitAttackCountHard = config.Bind("RNG King Dice", "Mr. Wheezy Attack Count Expert", DicePalaceCigarSpitAttackCountsHard.Random, --order);
         DicePalaceRabbitPattern = config.Bind("RNG King Dice", "Hopus Pocus Pattern", DicePalaceRabbitPatterns.Random, --order);
@@ -471,6 +477,8 @@ public class Settings : PluginComponent {
 
 #if v1_3
         OldManPhaseOnePlatformRemoveOrderNormal = config.Bind("RNG Glumstone The Giant", "Phase 1 Platform Fall Order Regular", OldManPhaseOnePlatformRemoveOrdersNormal.Random, --order);
+        OldManPhaseTwoLeftPuppetPatternEasy = config.Bind("RNG Glumstone The Giant", "Phase 2 Left Puppet Simple", OldManPhaseTwoLeftPuppetPatternsEasy.Random, --order);
+        OldManPhaseTwoRightPuppetPatternEasy = config.Bind("RNG Glumstone The Giant", "Phase 2 Right Puppet Simple", OldManPhaseTwoRightPuppetPatternsEasy.Random, --order);
         OldManPhaseTwoLeftPuppetPatternNormal = config.Bind("RNG Glumstone The Giant", "Phase 2 Left Puppet Regular", OldManPhaseTwoLeftPuppetPatternsNormal.Random, --order);
         OldManPhaseTwoRightPuppetPatternNormal = config.Bind("RNG Glumstone The Giant", "Phase 2 Right Puppet Regular", OldManPhaseTwoRightPuppetPatternsNormal.Random, --order);
         OldManPhaseTwoLeftPuppetPatternHard = config.Bind("RNG Glumstone The Giant", "Phase 2 Left Puppet Expert", OldManPhaseTwoLeftPuppetPatternsHard.Random, --order);
@@ -484,6 +492,10 @@ public class Settings : PluginComponent {
         SaltbakerPhaseThreeSawPattern = config.Bind("RNG Chef Saltbaker", "Phase 3 Saw Pattern", SaltbakerPhaseThreeSawPatterns.Random, --order);
 #endif
 
+    }
+
+    private void ShowSimpleExpertRNGOnSettingChanged(object sender, EventArgs e) {
+        ConfigExtensions.SetDifficultySpecificOptionsVisible(ShowSimpleExpertRNG.Value);
     }
 
     private void Update() {

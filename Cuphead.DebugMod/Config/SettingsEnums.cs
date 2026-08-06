@@ -1953,6 +1953,31 @@ namespace BepInEx.CupheadDebugMod.Config {
             Order11
         }
 
+        public enum OldManPhaseTwoLeftPuppetPatternsEasy {
+            Random,
+            Low01,
+            Mid01,
+            High01,
+            Low02,
+            Mid02,
+            Low03,
+            High02,
+            Mid03,
+            Low04
+        }
+
+        public enum OldManPhaseTwoRightPuppetPatternsEasy {
+            Random,
+            High01,
+            High02,
+            Low01,
+            Mid01,
+            High03,
+            Low02,
+            Mid02,
+            Low03
+        }
+
         public enum OldManPhaseTwoLeftPuppetPatternsNormal {
             Random,
             Low01,
