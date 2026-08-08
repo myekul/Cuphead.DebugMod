@@ -433,6 +433,12 @@ namespace BepInEx.CupheadDebugMod.Config {
             Jawbreaker
         }
 
+        public enum BaronessWaffleDirections {
+            Random,
+            Up,
+            Down
+        }
+
         public enum FlyingBirdPhaseOneDirections {
             Random,
             Up,
@@ -1778,6 +1784,58 @@ namespace BepInEx.CupheadDebugMod.Config {
             V_200
         }
 
+        public enum DevilPhaseOnePinwheelAngles {
+            Random,
+            [Description("0")]
+            A_0,
+            [Description("10")]
+            B_10,
+            [Description("-10")]
+            C_Neg10,
+            [Description("0")]
+            D_0,
+            [Description("5")]
+            E_05,
+            [Description("-5")]
+            F_Neg05,
+            [Description("-20")]
+            G_Neg20,
+            [Description("20")]
+            H_20,
+            [Description("0")]
+            I_0,
+            [Description("30")]
+            J_30,
+            [Description("-30")]
+            K_Neg30
+        }
+
+        public enum DevilPhaseOneRingAngles {
+            Random,
+            [Description("0")]
+            A_0,
+            [Description("10")]
+            B_10,
+            [Description("-10")]
+            C_Neg10,
+            [Description("25")]
+            D_25,
+            [Description("5")]
+            E_05,
+            [Description("30")]
+            F_30,
+            [Description("-25")]
+            G_Neg25,
+            [Description("15")]
+            H_15,
+            [Description("35")]
+            I_35,
+            [Description("20")]
+            J_20,
+            [Description("-20")]
+            K_Neg20
+        }
+
         public enum DevilPhaseOneSpiderOffsets {
             Random,
             [Description("-150")]
@@ -1978,7 +2036,7 @@ namespace BepInEx.CupheadDebugMod.Config {
             Low03
         }
 
-        public enum OldManPhaseTwoLeftPuppetPatternsNormal {
+        public enum OldManPhaseTwoLeftNormalRightHardPuppetPatterns {
             Random,
             Low01,
             Mid01,
@@ -1991,7 +2049,7 @@ namespace BepInEx.CupheadDebugMod.Config {
             Low04
         }
 
-        public enum OldManPhaseTwoRightPuppetPatternsNormal {
+        public enum OldManPhaseTwoRightNormalLeftHardPuppetPatterns {
             Random,
             High01,
             High02,
@@ -2001,31 +2059,6 @@ namespace BepInEx.CupheadDebugMod.Config {
             Low02,
             Mid02,
             Low03
-        }
-
-        public enum OldManPhaseTwoLeftPuppetPatternsHard {
-            Random,
-            High01,
-            High02,
-            Low01,
-            Mid01,
-            High03,
-            Low02,
-            Mid02,
-            Low03
-        }
-
-        public enum OldManPhaseTwoRightPuppetPatternsHard {
-            Random,
-            Low01,
-            Mid01,
-            High01,
-            Low02,
-            Mid02,
-            Low03,
-            High02,
-            Mid03,
-            Low04
         }
 
         public enum AirplanePhaseOnePatterns {
@@ -2036,25 +2069,15 @@ namespace BepInEx.CupheadDebugMod.Config {
 
         public enum AirplanePhaseOneSides {
             Random,
-            [Description("L")]
             Left01,
-            [Description("R")]
             Right01,
-            [Description("R")]
             Right02,
-            [Description("L")]
             Left02,
-            [Description("R")]
             Right03,
-            [Description("L")]
             Left03,
-            [Description("L")]
             Left04,
-            [Description("R")]
             Right04,
-            [Description("L")]
             Left05,
-            [Description("R")]
             Right05
         }
 
@@ -2065,6 +2088,182 @@ namespace BepInEx.CupheadDebugMod.Config {
             Parry01,
             Regular03,
             Parry02
+        }
+
+        public enum AirplanePhaseTwoTerrierRotationDirections {
+            Random,
+            Clockwise,
+            Counterclockwise
+        }
+
+        public enum RumRunnersPhaseOneSpiderActionsNormal {
+            Random,
+            Caterpillar01,
+            Grubs01,
+            None01,
+            Mine01,
+            Grubs02,
+            Mine02,
+            None02,
+            Grubs03,
+            Caterpillar02,
+            Mine03,
+            Grubs04,
+            None03
+        }
+
+        public enum RumRunnersPhaseOneSpiderActionsHard {
+            Random,
+            Caterpillar01,
+            Grubs01,
+            Mine01,
+            Caterpillar02,
+            None01,
+            Grubs02,
+            Mine02,
+            Caterpillar03,
+            None02,
+            Mine03,
+            Caterpillar04,
+            Grubs03,
+            Mine04,
+            None03
+        }
+
+        public enum RumRunnersPhaseOneSpiderInitialActions {
+            Random,
+            None,
+            Mine
+        }
+
+        public enum RumRunnersPhaseOneSpiderPositionsEasy {
+            Random,
+            Low01,
+            Mid01,
+            High01,
+            Mid02
+        }
+
+        public enum RumRunnersPhaseOneSpiderPositionsNormalHard {
+            Random,
+            Low01,
+            High01,
+            Mid01,
+            Low02,
+            Mid02,
+            High02,
+            Mid03,
+            High03,
+            Low03,
+            Low04,
+            High04,
+            Mid04,
+            Low05,
+            Mid05,
+            High05,
+            High06,
+            Mid06,
+            Low06,
+            High07
+        }
+
+        public enum RumRunnersPhaseOneSpiderActionPositions {
+            Random,
+            [Description("15")]
+            Position15,
+            [Description("85")]
+            Position85,
+            [Description("50")]
+            Position50,
+            [Description("75")]
+            Position75,
+            [Description("25")]
+            Position25,
+            [Description("35")]
+            Position35,
+            [Description("65")]
+            Position65
+        }
+
+        public enum RumRunnersPhaseOneMinePlacementsEasy {
+            Random,
+            [Description("0,7")] Zero_Seven,
+            [Description("3,9,12")] Three_Nine_Twelve,
+            [Description("2,14")] Two_Fourteen,
+            [Description("4,5,11")] Four_Five_Eleven,
+            [Description("6,13")] Six_Thirteen,
+            [Description("1,8,10")] One_Eight_Ten,
+            [Description("3,11")] Three_Eleven,
+            [Description("4,7,13")] Four_Seven_Thirteen,
+            [Description("1,10")] One_Ten,
+            [Description("0,8,12")] Zero_Eight_Twelve,
+            [Description("5,13")] Five_Thirteen,
+            [Description("2,6,9")] Two_Six_Nine,
+            [Description("4,12")] Four_Twelve,
+            [Description("0,9,11")] Zero_Nine_Eleven,
+            [Description("7,14")] Seven_Fourteen,
+            [Description("2,5,10")] Two_Five_Ten,
+            [Description("3,6")] Three_Six,
+            [Description("1,8,13")] One_Eight_Thirteen
+        }
+
+        public enum RumRunnersPhaseOneMinePlacementsNormal {
+            Random,
+            [Description("0,3,7,11")] Zero_Three_Seven_Eleven,
+            [Description("1,5,13")] One_Five_Thirteen,
+            [Description("4,6,10,12")] Four_Six_Ten_Twelve,
+            [Description("2,8,14")] Two_Eight_Fourteen,
+            [Description("1,3,7,11")] One_Three_Seven_Eleven,
+            [Description("0,9,13")] Zero_Nine_Thirteen,
+            [Description("2,5,12")] Two_Five_Twelve,
+            [Description("3,7,9,10")] Three_Seven_Nine_Ten,
+            [Description("4,8,11")] Four_Eight_Eleven,
+            [Description("1,6,8,14")] One_Six_Eight_Fourteen,
+            [Description("2,9,12")] Two_Nine_Twelve
+        }
+
+        public enum RumRunnersPhaseOneMinePlacementsHard {
+            Random,
+            [Description("1,3,7,11")] One_Three_Seven_Eleven,
+            [Description("2,5,9,10")] Two_Five_Nine_Ten,
+            [Description("0,4,6,8,12")] Zero_Four_Six_Eight_Twelve,
+            [Description("13,14,1,7")] Thirteen_Fourteen_One_Seven,
+            [Description("4,6,9,11")] Four_Six_Nine_Eleven,
+            [Description("4,8,10,14")] Four_Eight_Ten_Fourteen,
+            [Description("0,2,5,8,12")] Zero_Two_Five_Eight_Twelve,
+            [Description("3,6,8,14")] Three_Six_Eight_Fourteen,
+            [Description("1,5,9,13")] One_Five_Nine_Thirteen,
+            [Description("0,4,7,10,12")] Zero_Four_Seven_Ten_Twelve,
+            [Description("2,3,5,11")] Two_Three_Five_Eleven,
+            [Description("7,9,10,13")] Seven_Nine_Ten_Thirteen,
+            [Description("0,6,2,8,14")] Zero_Six_Two_Eight_Fourteen
+        }
+
+        public enum RumRunnersPhaseThreeSnoutActionsNormal {
+            Random,
+            [Description("LQ,F,LT")] LQ_F_LT,
+            [Description("Q,T")] Q_T,
+            [Description("LQ,Q,LF,Q,T")] LQ_Q_LF_Q_T,
+            [Description("Q,LF,Q,T")] Q_LF_Q_T,
+            [Description("F,LQ,Q,LT")] F_LQ_Q_LT,
+            [Description("Q,LT")] Q_LT,
+            [Description("LF,Q,LQ,Q,T")] LF_Q_LQ_Q_T,
+            [Description("Q,F,LQ,LT")] Q_F_LQ_LT,
+            [Description("Q,Q,LT")] Q_Q_LT
+        }
+
+        public enum RumRunnersPhaseThreeSnoutActionsHard {
+            Random,
+            [Description("F,LQ,LT")] F_LQ_LT,
+            [Description("Q,LT")] Q_LT,
+            [Description("LQ,Q,T")] LQ_Q_T,
+            [Description("LF,Q,T")] LF_Q_T,
+            [Description("Q,LQ,Q,LT")] Q_LQ_Q_LT,
+            [Description("Q,T")] Q_T,
+            [Description("Q,LF,Q,T")] Q_LF_Q_T,
+            [Description("Q,LQ,LT")] Q_LQ_LT,
+            [Description("LQ,F,T")] LQ_F_T,
+            [Description("LQ,LT")] LQ_LT
         }
 
         public enum RumRunnersPhaseThreeSnoutPositions {

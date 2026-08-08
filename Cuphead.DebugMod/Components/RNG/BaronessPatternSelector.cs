@@ -12,6 +12,14 @@ namespace BepInEx.CupheadDebugMod.Components.RNG;
 [HarmonyPatch]
 internal class BaronessPatternSelector : PluginComponent {
 
+    [HarmonyPatch(typeof(BaronessLevelWaffle), nameof(BaronessLevelWaffle.Awake))]
+    [HarmonyPostfix]
+    private static void WaffleDirectionManipulator(ref bool ___pathA) {
+        if (Settings.BaronessWaffleDirection.Value != BaronessWaffleDirections.Random) {
+            ___pathA = Settings.BaronessWaffleDirection.Value == BaronessWaffleDirections.Up;
+        }
+    }
+
     [HarmonyPatch(typeof(BaronessLevel), nameof(BaronessLevel.pickminibosses_cr), MethodType.Enumerator)]
     [HarmonyILManipulator]
     private static void MinibossSelectionManipulator(ILContext il) {

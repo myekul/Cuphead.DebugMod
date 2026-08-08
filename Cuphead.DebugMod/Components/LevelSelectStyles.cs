@@ -1,11 +1,13 @@
-using HarmonyLib;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using BepInEx.CupheadDebugMod;
 using BepInEx.CupheadDebugMod.Config;
 [HarmonyPatch(typeof(LevelSelectList), "SetupList")]
 public static class LevelSelectList_SetupList_Patch
@@ -73,7 +75,7 @@ public static class LevelSelectList_SetupList_Patch
         __instance.scenes = groups.ToArray();
     }
 
-    private static void ApplyButtonColors(UnityEngine.UI.Button button, Color baseColor)
+    internal static void ApplyButtonColors(UnityEngine.UI.Button button, Color baseColor)
     {
         Graphic graphic = button.targetGraphic ?? button.GetComponent<Graphic>();
         if (graphic != null)
@@ -238,14 +240,7 @@ public static class LevelSelectList_SetupList_Patch
         { Super.level_super_beam, new LoadoutEntryData("1 - Energy Beam", 0) },
         { Super.level_super_invincible, new LoadoutEntryData("2 - Invincibility", 1) },
         { Super.level_super_ghost, new LoadoutEntryData("3 - Giant Ghost", 2) },
-#if v1_3
-        { Super.level_super_chalice_vert_beam, new LoadoutEntryData("Ms. Chalice Energy Beam", 3) },
-        { Super.level_super_chalice_shield, new LoadoutEntryData("Shield Pal", 4) },
-        { Super.level_super_chalice_iii, new LoadoutEntryData("Ms. Chalice Giant Ghost", 5) },
-        { Super.None, new LoadoutEntryData("None", 6) },
-#else
-        { Super.None, new LoadoutEntryData("None", 3) },
-#endif
+        { Super.None, new LoadoutEntryData("None", 3) }
     };
 
     internal static readonly Dictionary<Charm, LoadoutEntryData> CharmEntries = new Dictionary<Charm, LoadoutEntryData>
@@ -368,6 +363,28 @@ public class LoadoutEntryData
 [HarmonyPatch]
 public static class LoadoutSelectList_SetupList_Patch
 {
+    private const string WeaponIconName = "DebugLoadoutWeaponIcon";
+    private static LevelHUDWeapon weaponIconTemplate;
+
+    internal static void CacheWeaponIcon(LevelHUDWeapon source)
+    {
+        if (weaponIconTemplate != null || source == null || source.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        weaponIconTemplate = UnityEngine.Object.Instantiate(source);
+        weaponIconTemplate.gameObject.name = WeaponIconName + "Template";
+        weaponIconTemplate.gameObject.SetActive(false);
+        UnityEngine.Object.DontDestroyOnLoad(weaponIconTemplate.gameObject);
+    }
+
+    private class LoadoutButtonInfo
+    {
+        public Button button;
+        public LoadoutEntryData entry;
+    }
+
     [HarmonyPatch(typeof(LoadoutSelectList), "SetupList")]
     [HarmonyPostfix]
     private static void Postfix(LoadoutSelectList __instance)
@@ -378,6 +395,7 @@ public static class LoadoutSelectList_SetupList_Patch
         }
 
         bool isWeaponList = __instance.mode is LoadoutSelectList.Mode.Primary or LoadoutSelectList.Mode.Secondary;
+        List<LoadoutButtonInfo> orderedButtons = new List<LoadoutButtonInfo>();
 
         foreach (Button button in __instance.contentPanel.GetComponentsInChildren<Button>(true))
         {
@@ -385,18 +403,35 @@ public static class LoadoutSelectList_SetupList_Patch
             {
                 Weapon weapon = (Weapon)Enum.Parse(typeof(Weapon), button.name);
                 ApplyEntryVisibility(button, LevelSelectList_SetupList_Patch.WeaponEntries.TryGetValue(weapon, out LoadoutEntryData weaponEntry), weaponEntry);
+                if (weaponEntry != null)
+                {
+                    if (weapon != Weapon.None)
+                    {
+                        AddWeaponIcon(button, weapon);
+                    }
+
+                    orderedButtons.Add(new LoadoutButtonInfo { button = button, entry = weaponEntry });
+                }
             }
 
             if (__instance.mode == LoadoutSelectList.Mode.Super && Enum.IsDefined(typeof(Super), button.name))
             {
                 Super super = (Super)Enum.Parse(typeof(Super), button.name);
                 ApplyEntryVisibility(button, LevelSelectList_SetupList_Patch.SuperEntries.TryGetValue(super, out LoadoutEntryData superEntry), superEntry);
+                if (superEntry != null)
+                {
+                    orderedButtons.Add(new LoadoutButtonInfo { button = button, entry = superEntry });
+                }
             }
 
             if (__instance.mode == LoadoutSelectList.Mode.Charm && Enum.IsDefined(typeof(Charm), button.name))
             {
                 Charm charm = (Charm)Enum.Parse(typeof(Charm), button.name);
                 ApplyEntryVisibility(button, LevelSelectList_SetupList_Patch.CharmEntries.TryGetValue(charm, out LoadoutEntryData charmEntry), charmEntry);
+                if (charmEntry != null)
+                {
+                    orderedButtons.Add(new LoadoutButtonInfo { button = button, entry = charmEntry });
+                }
             }
 
             Text textComponent = button.GetComponentInChildren<Text>();
@@ -405,15 +440,43 @@ public static class LoadoutSelectList_SetupList_Patch
                 textComponent.text = displayName;
             }
         }
+
+        orderedButtons.Sort((a, b) => a.entry.index.CompareTo(b.entry.index));
+        for (int i = 0; i < orderedButtons.Count; i++)
+        {
+            orderedButtons[i].button.transform.SetSiblingIndex(i);
+        }
     }
 
     private static void ApplyEntryVisibility(Button button, bool hasEntry, LoadoutEntryData entry)
     {
         button.gameObject.SetActive(Settings.ShowUnusedLevels.Value || hasEntry);
-        if (hasEntry)
+    }
+
+    private static void AddWeaponIcon(Button button, Weapon weapon)
+    {
+        if (weaponIconTemplate == null || button.transform.Find(WeaponIconName) != null)
         {
-            button.transform.SetSiblingIndex(entry.name == "None" ? button.transform.parent.childCount - 1 : entry.index);
+            return;
         }
+
+        GameObject iconObject = UnityEngine.Object.Instantiate(weaponIconTemplate.gameObject, button.transform, false);
+        iconObject.name = WeaponIconName;
+        UnityEngine.Object.DestroyImmediate(iconObject.GetComponent<LevelHUDWeapon>());
+        iconObject.SetActive(true);
+
+        Animator animator = iconObject.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.Play(weapon.ToString());
+        }
+
+        RectTransform iconRect = iconObject.GetComponent<RectTransform>();
+        iconRect.anchorMin = new Vector2(1f, 0.5f);
+        iconRect.anchorMax = new Vector2(1f, 0.5f);
+        iconRect.pivot = new Vector2(0.5f, 0.5f);
+        iconRect.anchoredPosition = new Vector2(-28f, -12f);
+        iconRect.localScale = Vector3.one * 0.35f;
     }
 
     private static bool TryGetDisplayName(LoadoutSelectList.Mode mode, string buttonName, out string displayName)
@@ -455,6 +518,25 @@ public static class LoadoutSelectList_SetupList_Patch
         }
 
         return false;
+    }
+}
+
+public class LoadoutWeaponIconCache : PluginComponent
+{
+    private static readonly FieldInfo WeaponIconPrefabField = AccessTools.Field(typeof(LevelHUDPlayer), "weaponIconPrefab");
+
+    private void Update()
+    {
+        if (WeaponIconPrefabField == null)
+        {
+            return;
+        }
+
+        LevelHUDPlayer hudPlayer = Resources.FindObjectsOfTypeAll<LevelHUDPlayer>().FirstOrDefault();
+        if (hudPlayer != null)
+        {
+            LoadoutSelectList_SetupList_Patch.CacheWeaponIcon(WeaponIconPrefabField.GetValue(hudPlayer) as LevelHUDWeapon);
+        }
     }
 }
 
@@ -573,8 +655,15 @@ public class LevelSelectConfigSettings : MonoBehaviour, IPointerEnterHandler, IP
             return;
         }
 
+        configurationManagerType.GetProperty("DisplayingWindow")?.SetValue(configurationManager, true, null);
+        StartCoroutine(SetConfigurationSearchNextFrame(configurationManager, configurationManagerType));
+    }
+
+    private IEnumerator SetConfigurationSearchNextFrame(Component configurationManager, Type configurationManagerType)
+    {
+        yield return null;
+
         PropertyInfo searchProperty = configurationManagerType.GetProperty("SearchString", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         searchProperty?.GetSetMethod(true)?.Invoke(configurationManager, new object[] { searchText });
-        configurationManagerType.GetProperty("DisplayingWindow")?.SetValue(configurationManager, true, null);
     }
 }

@@ -33,6 +33,20 @@ internal class AirplanePatternSelector : PluginComponent {
         }
     }
 
+    [HarmonyPatch(typeof(AirplaneLevel), "handle_terriers_cr", MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    private static void TerrierRotationManipulator(ILContext il) {
+        ILCursor cursor = new(il);
+        if (cursor.TryGotoNext(MoveType.After,
+                i => i.OpCode == OpCodes.Call && i.Operand.ToString().Contains("Rand::Bool"))) {
+            cursor.EmitDelegate<Func<bool, bool>>(isClockwise => AirplanePhaseTwoTerrierRotationDirection.Value switch {
+                AirplanePhaseTwoTerrierRotationDirections.Clockwise => true,
+                AirplanePhaseTwoTerrierRotationDirections.Counterclockwise => false,
+                _ => isClockwise
+            });
+        }
+    }
+
     [HarmonyPatch(typeof(AirplaneLevelBulldogPlane), nameof(AirplaneLevelBulldogPlane.LevelInit))]
     [HarmonyPostfix]
     private static void ParachuteSideManipulator(ref PatternString ___sideString) {
