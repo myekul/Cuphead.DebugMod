@@ -133,6 +133,10 @@ public class Settings : PluginComponent {
     public static ConfigEntry<ClownDashDelaysEasy> ClownDashDelayEasy;
     public static ConfigEntry<ClownDashDelaysNormal> ClownDashDelayNormal;
     public static ConfigEntry<ClownDashDelaysHard> ClownDashDelayHard;
+    public static ConfigEntry<ClownDuckPatternsEasy> ClownDuckPatternEasy;
+    public static ConfigEntry<ClownDuckPatternsNormal> ClownDuckPatternNormal;
+    public static ConfigEntry<ClownDuckPatternsHard> ClownDuckPatternHard;
+    public static ConfigEntry<ClownDuckStartIndexes> ClownDuckStartIndex;
     public static ConfigEntry<ClownHorseTypes> ClownHorseType;
     public static ConfigEntry<ClownHorseDirections> ClownHorseDirection;
     public static ConfigEntry<DragonPhaseOnePatternsEasy> DragonPhaseOnePatternEasy;
@@ -220,6 +224,8 @@ public class Settings : PluginComponent {
     public static ConfigEntry<DevilPhaseOnePitchforkTypes> DevilPhaseOnePitchforkType;
     public static ConfigEntry<DevilPhaseOneBouncerParryIndexes> DevilPhaseOneBouncerParryIndex;
     public static ConfigEntry<DevilPhaseOneRingParryIndexes> DevilPhaseOneRingParryIndex;
+    public static ConfigEntry<float> DevilPhaseOneBouncerDelay;
+    public static ConfigEntry<float> DevilPhaseOneRingDelay;
     public static ConfigEntry<DevilPhaseOneBouncerAnglesNormal> DevilPhaseOneBouncerAngleNormal;
     public static ConfigEntry<DevilPhaseOneBouncerAnglesHard> DevilPhaseOneBouncerAngleHard;
     public static ConfigEntry<DevilPhaseOnePinwheelAngles> DevilPhaseOnePinwheelAngle;
@@ -246,7 +252,7 @@ public class Settings : PluginComponent {
     public static ConfigEntry<RumRunnersPhaseThreeSnoutPositions> RumRunnersPhaseThreeSnoutPosition;
     public static ConfigEntry<RumRunnersPhaseThreeSnoutActionsNormal> RumRunnersPhaseThreeSnoutActionNormal;
     public static ConfigEntry<RumRunnersPhaseThreeSnoutActionsHard> RumRunnersPhaseThreeSnoutActionHard;
-    public static ConfigEntry<RumRunnersPhaseOneSpiderActionsNormal> RumRunnersPhaseOneSpiderActionNormal;
+    public static ConfigEntry<RumRunnersPhaseOneSpiderActionsEasyNormal> RumRunnersPhaseOneSpiderActionEasyNormal;
     public static ConfigEntry<RumRunnersPhaseOneSpiderActionsHard> RumRunnersPhaseOneSpiderActionHard;
     public static ConfigEntry<RumRunnersPhaseOneSpiderInitialActions> RumRunnersPhaseOneSpiderInitialAction;
     public static ConfigEntry<RumRunnersPhaseOneSpiderPositionsEasy> RumRunnersPhaseOneSpiderPositionEasy;
@@ -394,6 +400,10 @@ public class Settings : PluginComponent {
         ClownDashDelayEasy = config.Bind("RNG Beppi The Clown", "Phase 1 Bumper Delays Simple", ClownDashDelaysEasy.Random, --order);
         ClownDashDelayNormal = config.Bind("RNG Beppi The Clown", "Phase 1 Bumper Delays Regular", ClownDashDelaysNormal.Random, --order);
         ClownDashDelayHard = config.Bind("RNG Beppi The Clown", "Phase 1 Bumper Delays Expert", ClownDashDelaysHard.Random, --order);
+        ClownDuckPatternEasy = config.Bind("RNG Beppi The Clown", "Phase 1 Duck Pattern Simple", ClownDuckPatternsEasy.Random, --order);
+        ClownDuckPatternNormal = config.Bind("RNG Beppi The Clown", "Phase 1 Duck Pattern Regular", ClownDuckPatternsNormal.Random, --order);
+        ClownDuckPatternHard = config.Bind("RNG Beppi The Clown", "Phase 1 Duck Pattern Expert", ClownDuckPatternsHard.Random, --order);
+        ClownDuckStartIndex = config.Bind("RNG Beppi The Clown", "Phase 1 Duck Start Index", ClownDuckStartIndexes.Random, --order);
         ClownHorseType = config.Bind("RNG Beppi The Clown", "Phase 3 Horse Type", ClownHorseTypes.Random, --order);
         ClownHorseDirection = config.Bind("RNG Beppi The Clown", "Phase 3 Horse Direction", ClownHorseDirections.Random, --order);
         DragonPhaseOnePatternEasy = config.Bind("RNG Grim Matchstick", "Phase 1 Pattern Simple", DragonPhaseOnePatternsEasy.Random, --order);
@@ -481,6 +491,8 @@ public class Settings : PluginComponent {
         DevilPhaseOnePitchforkType = config.Bind("RNG The Devil", "Phase 1 Pitchfork Type", DevilPhaseOnePitchforkTypes.Random, --order);
         DevilPhaseOneBouncerParryIndex = config.Bind("RNG The Devil", "Phase 1 Bouncer Parry Index", DevilPhaseOneBouncerParryIndexes.Random, --order);
         DevilPhaseOneRingParryIndex = config.Bind("RNG The Devil", "Phase 1 Ring Parry Index", DevilPhaseOneRingParryIndexes.Random, --order);
+        DevilPhaseOneBouncerDelay = config.Bind("RNG The Devil", "Phase 1 Bouncer Delay (1.0-1.5. -1 for random)", -1f, --order);
+        DevilPhaseOneRingDelay = config.Bind("RNG The Devil", "Phase 1 Ring Delay (1.0-1.5. -1 for random)", -1f, --order);
         DevilPhaseOneBouncerAngleNormal = config.Bind("RNG The Devil", "Phase 1 Bouncer Angle Regular", DevilPhaseOneBouncerAnglesNormal.Random, --order);
         DevilPhaseOneBouncerAngleHard = config.Bind("RNG The Devil", "Phase 1 Bouncer Angle Expert", DevilPhaseOneBouncerAnglesHard.Random, --order);
         DevilPhaseOnePinwheelAngle = config.Bind("RNG The Devil", "Phase 1 Pinwheel Angle", DevilPhaseOnePinwheelAngles.Random, --order);
@@ -504,7 +516,7 @@ public class Settings : PluginComponent {
         AirplanePhaseOneParryPattern = config.Bind("RNG The Howling Aces", "Phase 1 Parry Pattern", AirplanePhaseOneParryPatterns.Random, --order);
         AirplanePhaseOneAttackDelay = config.Bind("RNG The Howling Aces", "Phase 1 Attack Delay (2.5-4.0 for Simple, 2.0-3.5 for Regular, 1.5-3.0 for Expert. -1 for random)", -1f, --order);
         AirplanePhaseTwoTerrierRotationDirection = config.Bind("RNG The Howling Aces", "Phase 2 Rotation", AirplanePhaseTwoTerrierRotationDirections.Random, --order);
-        RumRunnersPhaseOneSpiderActionNormal = config.Bind("RNG Moonshine Mob", "Phase 1 Spider Pattern Regular", RumRunnersPhaseOneSpiderActionsNormal.Random, --order);
+        RumRunnersPhaseOneSpiderActionEasyNormal = config.Bind("RNG Moonshine Mob", "Phase 1 Spider Pattern Regular/Simple", RumRunnersPhaseOneSpiderActionsEasyNormal.Random, --order);
         RumRunnersPhaseOneSpiderActionHard = config.Bind("RNG Moonshine Mob", "Phase 1 Spider Pattern Expert", RumRunnersPhaseOneSpiderActionsHard.Random, --order);
         RumRunnersPhaseOneSpiderInitialAction = config.Bind("RNG Moonshine Mob", "Phase 1 Spider Initial Action", RumRunnersPhaseOneSpiderInitialActions.Random, --order);
         RumRunnersPhaseOneSpiderPositionEasy = config.Bind("RNG Moonshine Mob", "Phase 1 Spider Position Simple", RumRunnersPhaseOneSpiderPositionsEasy.Random, --order);

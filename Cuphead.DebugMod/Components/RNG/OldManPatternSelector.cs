@@ -29,20 +29,29 @@ internal class OldManPatternSelector : PluginComponent {
     [HarmonyILManipulator]
     private static void PuppetPositionManipulator(ILContext il) {
         ILCursor cursor = new(il);
-        if (cursor.TryGotoNext(MoveType.After,
-                i => i.OpCode == OpCodes.Ldfld && i.Operand.ToString().Contains("Hands::leftHandPosString"),
-                i => i.OpCode == OpCodes.Newobj && i.Operand.ToString().Contains("PatternString::.ctor"))) {
-            cursor.EmitDelegate<Func<PatternString, PatternString>>(positions =>
-                SetPuppetPosition(positions, GetLeftPuppetPattern()));
+        if (TryGotoAfterPuppetPatternCtor(cursor, "Hands::leftHandPosString")) {
+            cursor.EmitDelegate<Func<PatternString, PatternString>>(SetLeftPuppetPosition);
         }
 
         cursor.Index = 0;
-        if (cursor.TryGotoNext(MoveType.After,
-                i => i.OpCode == OpCodes.Ldfld && i.Operand.ToString().Contains("Hands::rightHandPosString"),
-                i => i.OpCode == OpCodes.Newobj && i.Operand.ToString().Contains("PatternString::.ctor"))) {
-            cursor.EmitDelegate<Func<PatternString, PatternString>>(positions =>
-                SetPuppetPosition(positions, GetRightPuppetPattern()));
+        if (TryGotoAfterPuppetPatternCtor(cursor, "Hands::rightHandPosString")) {
+            cursor.EmitDelegate<Func<PatternString, PatternString>>(SetRightPuppetPosition);
         }
+    }
+
+    private static bool TryGotoAfterPuppetPatternCtor(ILCursor cursor, string handPositionField) {
+        return cursor.TryGotoNext(MoveType.After,
+                   i => i.OpCode == OpCodes.Ldfld && i.Operand.ToString().Contains(handPositionField)) &&
+               cursor.TryGotoNext(MoveType.After,
+                   i => i.OpCode == OpCodes.Newobj && i.Operand.ToString().Contains("PatternString::.ctor"));
+    }
+
+    private static PatternString SetLeftPuppetPosition(PatternString positions) {
+        return SetPuppetPosition(positions, GetLeftPuppetPattern());
+    }
+
+    private static PatternString SetRightPuppetPosition(PatternString positions) {
+        return SetPuppetPosition(positions, GetRightPuppetPattern());
     }
 
     private static PatternString SetPuppetPosition(PatternString positions, int selectedIndex) {

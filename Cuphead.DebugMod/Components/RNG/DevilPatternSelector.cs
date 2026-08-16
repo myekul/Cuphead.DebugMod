@@ -233,6 +233,12 @@ internal class DevilPatternSelector : PluginComponent {
         }
     }
 
+    [HarmonyPatch(typeof(DevilLevelSittingDevil), nameof(DevilLevelSittingDevil.pitchforkFourFlameBouncer_cr), MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    public static void PhaseOneBouncerDelayManipulator(ILContext il) {
+        ReplacePitchforkDelayRandomization(il, OverrideBouncerDelay);
+    }
+
     [HarmonyPatch(typeof(DevilLevelSittingDevil), nameof(DevilLevelSittingDevil.pitchforkSixFlameRing_cr), MethodType.Enumerator)]
     [HarmonyILManipulator]
     public static void PhaseOneRingParryableProjectileManipulator(ILContext il) {
@@ -244,6 +250,29 @@ internal class DevilPatternSelector : PluginComponent {
                     ? randomIndex
                     : (int)DevilPhaseOneRingParryIndex.Value - 1);
         }
+    }
+
+    [HarmonyPatch(typeof(DevilLevelSittingDevil), nameof(DevilLevelSittingDevil.pitchforkSixFlameRing_cr), MethodType.Enumerator)]
+    [HarmonyILManipulator]
+    public static void PhaseOneRingDelayManipulator(ILContext il) {
+        ReplacePitchforkDelayRandomization(il, OverrideRingDelay);
+    }
+
+    private static void ReplacePitchforkDelayRandomization(ILContext il, Func<float, float> overrideDelay) {
+        ILCursor cursor = new(il);
+        while (cursor.TryGotoNext(MoveType.After,
+                   i => i.Operand?.ToString().Contains("MinMax::RandomFloat") == true)) {
+            cursor.EmitDelegate(overrideDelay);
+            cursor.Index++;
+        }
+    }
+
+    private static float OverrideBouncerDelay(float randomDelay) {
+        return DevilPhaseOneBouncerDelay.Value < 0f ? randomDelay : DevilPhaseOneBouncerDelay.Value;
+    }
+
+    private static float OverrideRingDelay(float randomDelay) {
+        return DevilPhaseOneRingDelay.Value < 0f ? randomDelay : DevilPhaseOneRingDelay.Value;
     }
 
     [HarmonyPatch(typeof(DevilLevel), nameof(DevilLevel.OnStateChanged))]

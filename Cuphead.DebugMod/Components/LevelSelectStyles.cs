@@ -21,10 +21,12 @@ public static class LevelSelectList_SetupList_Patch
         return Color.white;
     }
 
+#pragma warning disable Harmony003
     private static float GetLuminance(Color color)
     {
         return color.r * 0.299f + color.g * 0.587f + color.b * 0.114f;
     }
+#pragma warning restore Harmony003
 
     private static Color GetHighlightColor(Color baseColor)
     {
@@ -336,6 +338,7 @@ public static class LevelSelectList_SetupList_Patch
         }
     }
 
+#pragma warning disable Harmony003
     private static string GetConfigSearch(string entryName)
     {
         int separatorIndex = entryName.IndexOf(" - ", StringComparison.Ordinal);
@@ -346,6 +349,7 @@ public static class LevelSelectList_SetupList_Patch
 
         return entryName == "Dr. Kahl's Robot" ? "Dr. Kahls Robot" : entryName;
     }
+#pragma warning restore Harmony003
 }
 
 public class LoadoutEntryData
@@ -453,6 +457,7 @@ public static class LoadoutSelectList_SetupList_Patch
         button.gameObject.SetActive(Settings.ShowUnusedLevels.Value || hasEntry);
     }
 
+#pragma warning disable Harmony003
     private static void AddWeaponIcon(Button button, Weapon weapon)
     {
         if (weaponIconTemplate == null || button.transform.Find(WeaponIconName) != null)
@@ -475,9 +480,10 @@ public static class LoadoutSelectList_SetupList_Patch
         iconRect.anchorMin = new Vector2(1f, 0.5f);
         iconRect.anchorMax = new Vector2(1f, 0.5f);
         iconRect.pivot = new Vector2(0.5f, 0.5f);
-        iconRect.anchoredPosition = new Vector2(-28f, -12f);
-        iconRect.localScale = Vector3.one * 0.35f;
+        iconRect.anchoredPosition = new Vector2(-26f, -12f);
+        iconRect.localScale = Vector3.one * 0.32f;
     }
+#pragma warning restore Harmony003
 
     private static bool TryGetDisplayName(LoadoutSelectList.Mode mode, string buttonName, out string displayName)
     {

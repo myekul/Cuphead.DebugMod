@@ -821,6 +821,48 @@ namespace BepInEx.CupheadDebugMod.Config {
             Yellow4
         }
 
+        public enum ClownDuckPatternsEasy {
+            Random,
+            [Description("R,R,P,R,R,R,R,P")]
+            Pattern01
+        }
+
+        public enum ClownDuckPatternsNormal {
+            Random,
+            [Description("R,B,R,R,R,B,R,P")]
+            Pattern01,
+            [Description("R,R,B,P,R,R,B,R")]
+            Pattern02
+        }
+
+        public enum ClownDuckPatternsHard {
+            Random,
+            [Description("R,B,R,R,B,R,P,B")]
+            Pattern01,
+            [Description("R,R,B,P,R,B,R,B")]
+            Pattern02
+        }
+
+        public enum ClownDuckStartIndexes {
+            Random,
+            [Description("1")]
+            One,
+            [Description("2")]
+            Two,
+            [Description("3")]
+            Three,
+            [Description("4")]
+            Four,
+            [Description("5")]
+            Five,
+            [Description("6")]
+            Six,
+            [Description("7")]
+            Seven,
+            [Description("8")]
+            Eight
+        }
+
         public enum ClownHorseDirections {
             Random,
             Left,
@@ -2096,7 +2138,7 @@ namespace BepInEx.CupheadDebugMod.Config {
             Counterclockwise
         }
 
-        public enum RumRunnersPhaseOneSpiderActionsNormal {
+        public enum RumRunnersPhaseOneSpiderActionsEasyNormal {
             Random,
             Caterpillar01,
             Grubs01,

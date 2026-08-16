@@ -47,6 +47,7 @@ internal class BaronessPatternSelector : PluginComponent {
         }
     }
 
+#pragma warning disable Harmony003
     public static void SetMinibossSelection(List<string> minibossPool, int setting1, int setting2, int setting3, object random) {
 
         List<string> pickedMinibosses = new List<string> {
@@ -83,4 +84,5 @@ internal class BaronessPatternSelector : PluginComponent {
 
         BaronessLevel.PICKED_BOSSES = pickedMinibosses;
     }
+#pragma warning restore Harmony003
 }

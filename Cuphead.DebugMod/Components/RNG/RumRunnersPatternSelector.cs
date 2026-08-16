@@ -52,7 +52,7 @@ internal class RumRunnersPatternSelector : PluginComponent {
             cursor.EmitDelegate<Func<PatternString, PatternString>>(actions => {
                 int actionIndex = Level.CurrentMode == Level.Mode.Hard
                     ? (int)Settings.RumRunnersPhaseOneSpiderActionHard.Value - 2
-                    : (int)Settings.RumRunnersPhaseOneSpiderActionNormal.Value - 2;
+                    : (int)Settings.RumRunnersPhaseOneSpiderActionEasyNormal.Value - 2;
                 if (actionIndex >= -1) {
                     actions.SetSubStringIndex(actionIndex);
                 }
